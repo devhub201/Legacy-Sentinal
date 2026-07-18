@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legacy Sentinel — Premium Terminal</title>
+    <!-- Tailwind CSS Engine -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #060813;
+            /* Cosmic Space Grid Canvas Background Image */
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(79, 70, 229, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(16, 185, 129, 0.05) 0%, transparent 45%),
+                linear-gradient(to bottom, rgba(6, 8, 19, 0.95), rgba(9, 11, 28, 0.98)),
+                url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1964&auto=format&fit=crop');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        /* Ultimate Glassmorphic Blur & Glow Borders */
+        .premium-glass {
+            background: rgba(10, 14, 30, 0.45);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        .premium-glass:hover {
+            border-color: rgba(99, 102, 241, 0.25);
+            box-shadow: 0 8px 40px 0 rgba(99, 102, 241, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Custom Soft Skeleton Animation Pulse */
+        .skeleton-pulse {
+            background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+            background-size: 200% 100%;
+            animation: loading-wave 1.6s infinite linear;
+        }
+
+        @keyframes loading-wave {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Neon Glow Accents */
+        .neon-glow-indigo { box-shadow: 0 0 20px rgba(99, 102, 241, 0.15); }
+        .neon-glow-emerald { box-shadow: 0 0 20px rgba(16, 185, 129, 0.15); }
+    </style>
+</head>
+<body class="text-gray-200 min-h-screen tracking-tight antialiased">
+
+    <!-- Premium Navigation Bar -->
+    <nav class="w-full h-20 premium-glass border-b border-white/5 flex items-center justify-between px-8 fixed top-0 left-0 z-50">
+        <div class="flex items-center space-x-4">
+            <!-- Branding Premium Logo Graphics -->
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg neon-glow-indigo group transition-all duration-300 hover:rotate-6">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-md font-extrabold tracking-widest text-white">SENTINEL<span class="text-indigo-400"> CORE</span></span>
+                <span class="text-[10px] text-gray-500 uppercase tracking-widest font-mono">Legacy Cloud Enterprise</span>
+            </div>
+        </div>
+        
+        <!-- Live Connection Status -->
+        <div class="flex items-center">
+            <div class="flex items-center space-x-2.5 bg-black/40 px-4 py-2 rounded-xl border border-white/5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_rgba(52,211,153,0.5)]"></span>
+                <span id="connection-badge" class="text-xs font-mono font-medium tracking-wider text-emerald-400">GATEWAY_ONLINE</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content Workspace -->
+    <main class="max-w-7xl mx-auto px-6 pt-28 pb-16">
+        
+        <!-- Header Controls Row -->
+        <div class="mb-10 flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
+            <div>
+                <h1 class="text-3xl font-black text-white tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-500">Security Command Center</h1>
+                <p class="text-sm text-gray-400 mt-1">Configure anti-nuke matrix layers and recover server state structures in real-time.</p>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button onclick="fetchLiveTelemetry()" class="px-4 py-2.5 bg-white/5 hover:bg-white/10 active:scale-95 transition-all text-sm font-semibold rounded-xl border border-white/5 flex items-center space-x-2">
+                    <span>🔄 Sync System</span>
+                </button>
+                <button onclick="pushConfigurationPayload()" class="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 active:scale-95 transition-all text-sm font-bold rounded-xl text-white shadow-lg shadow-indigo-600/20">
+                    💾 Commit Parameters
+                </button>
+            </div>
+        </div>
+
+        <!-- Notification Panel (Toast Container) -->
+        <div id="status-toast" class="hidden mb-8 p-4 rounded-xl border flex items-center space-x-3 transition-all duration-300">
+            <span id="toast-icon" class="text-lg"></span>
+            <p id="toast-message" class="text-sm font-semibold"></p>
+        </div>
+
+        <!-- Main Layout Split Grid Matrix -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Central Dashboard Controller Cards -->
+            <div class="lg:col-span-2 space-y-8">
+                
+                <!-- Telemetry Counters Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                    
+                    <!-- Widget 1 Card -->
+                    <div class="premium-glass p-6 rounded-2xl relative overflow-hidden group">
+                        <!-- Card Background Image Highlight Layer -->
+                        <div class="absolute -right-4 -bottom-4 text-white/5 pointer-events-none transition-transform duration-500 group-hover:scale-110">
+                            <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 7 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.83 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                        </div>
+                        <p class="text-[11px] font-bold text-gray-400 uppercase tracking-widest font-mono">Total Monitored Accounts</p>
+                        <!-- Loading Skeleton Placeholder -->
+                        <div id="skeleton-members" class="w-24 h-8 skeleton-pulse rounded mt-2"></div>
+                        <h3 id="widget-members" class="hidden text-3xl font-black text-white mt-2 tracking-tight">--</h3>
+                    </div>
+
+                    <!-- Widget 2 Card -->
+                    <div class="premium-glass p-6 rounded-2xl relative overflow-hidden group">
+                        <div class="absolute -right-4 -bottom-4 text-white/5 pointer-events-none transition-transform duration-500 group-hover:scale-110">
+                            <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+                        </div>
+                        <p class="text-[11px] font-bold text-gray-400 uppercase tracking-widest font-mono">Structural Backups</p>
+                        <div id="skeleton-backups" class="w-16 h-8 skeleton-pulse rounded mt-2"></div>
+                        <h3 id="widget-backups" class="hidden text-3xl font-black text-indigo-400 mt-2 tracking-tight neon-text">--</h3>
+                    </div>
+
+                    <!-- Widget 3 Card -->
+                    <div class="premium-glass p-6 rounded-2xl relative overflow-hidden group">
+                        <div class="absolute -right-4 -bottom-4 text-white/5 pointer-events-none transition-transform duration-500 group-hover:scale-110">
+                            <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg>
+                        </div>
+                        <p class="text-[11px] font-bold text-gray-400 uppercase tracking-widest font-mono">Priority Channel Locks</p>
+                        <div id="skeleton-priority" class="w-16 h-8 skeleton-pulse rounded mt-2"></div>
+                        <h3 id="widget-priority" class="hidden text-3xl font-black text-emerald-400 mt-2 tracking-tight">--</h3>
+                    </div>
+                </div>
+
+                <!-- Core Protection Rules Config Module -->
+                <div class="premium-glass p-8 rounded-2xl space-y-6 relative overflow-hidden">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">🛡️</div>
+                        <h2 class="text-lg font-bold text-white tracking-wide">Anti-Nuke Matrix Settings</h2>
+                    </div>
+                    <hr class="border-white/5">
+
+                    <!-- Sliders & Inputs UI Controllers -->
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between items-center mb-2.5">
+                                <label class="text-xs font-bold text-gray-400 uppercase tracking-wider font-mono">Destruction Rate Limit Threshold</label>
+                                <span id="nuke-threshold-val" class="text-xs font-mono font-bold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-lg">5</span>
+                            </div>
+                            <input type="range" id="nukeThreshold" min="2" max="20" value="5" oninput="document.getElementById('nuke-threshold-val').innerText = this.value" class="w-full accent-indigo-500 bg-gray-900 rounded-lg appearance-none h-2 cursor-pointer border border-white/5">
+                            <p class="text-xs text-gray-500 mt-2">Maximum operations (Channel/Role modifications) allowed per account inside a 60-second window before immediate restriction containment triggers.</p>
+                        </div>
+
+                        <!-- System Configuration Switch Toggles Container Row -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-3">
+                            <div class="flex items-center justify-between p-4 bg-black/30 border border-white/5 rounded-xl transition-all duration-300 hover:bg-black/50">
+                                <div class="space-y-0.5">
+                                    <h4 class="text-sm font-bold text-white">Automated System Bans</h4>
+                                    <p class="text-xs text-gray-500">Terminate bad actor sessions instantly.</p>
+                                </div>
+                                <input type="checkbox" id="autoBan" class="w-4 h-4 accent-indigo-500 rounded cursor-pointer bg-gray-900 border-white/10">
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-black/30 border border-white/5 rounded-xl transition-all duration-300 hover:bg-black/50">
+                                <div class="space-y-0.5">
+                                    <h4 class="text-sm font-bold text-white">Structural Autorecovery</h4>
+                                    <p class="text-xs text-gray-500">Auto rebuild targets from PostgreSQL database.</p>
+                                </div>
+                                <input type="checkbox" id="autoRecovery" class="w-4 h-4 accent-indigo-500 rounded cursor-pointer bg-gray-900 border-white/10">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar Context Metadata Container panels -->
+            <div class="space-y-8">
+                
+                <!-- Server Identity Identification Panel -->
+                <div class="premium-glass p-6 rounded-2xl space-y-5">
+                    <h3 class="text-xs font-bold tracking-widest text-gray-400 uppercase font-mono">Target Guild Registry</h3>
+                    <div class="flex items-center space-x-4 p-4 bg-black/40 border border-white/5 rounded-xl">
+                        <!-- Server Icon Skeleton -->
+                        <div id="skeleton-avatar" class="w-12 h-12 rounded-xl skeleton-pulse bg-white/5 shrink-0"></div>
+                        <img id="guild-avatar" src="" class="hidden w-12 h-12 rounded-xl object-cover border border-white/10 shadow shadow-black" alt="Server Frame Icon">
+                        
+                        <div class="overflow-hidden space-y-1 w-full">
+                            <div id="skeleton-name" class="w-32 h-4 skeleton-pulse rounded"></div>
+                            <h4 id="guild-name" class="hidden text-sm font-bold text-white truncate">Querying Profile...</h4>
+                            
+                            <div id="skeleton-id" class="w-24 h-3 skeleton-pulse rounded"></div>
+                            <p id="guild-id-display" class="hidden text-[10px] text-gray-500 font-mono tracking-tight truncate">ID: --</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3 pt-1 border-t border-white/5">
+                        <div class="flex justify-between items-center text-xs font-medium">
+                            <span class="text-gray-400">Security Array State</span>
+                            <span id="guild-status" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white/5 text-gray-400">OPERATIONAL</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs font-medium">
+                            <span class="text-gray-400">Last Telemetry Trace</span>
+                            <span id="guild-last-backup" class="text-gray-400 font-mono text-[11px]">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Whitelist Target Management List -->
+                <div class="premium-glass p-6 rounded-2xl space-y-4">
+                    <h3 class="text-xs font-bold tracking-widest text-gray-400 uppercase font-mono">Bypass Access Directives</h3>
+                    
+                    <!-- Whitelist Skeleton Loader -->
+                    <div id="skeleton-whitelist" class="space-y-2">
+                        <div class="w-full h-10 skeleton-pulse rounded-lg"></div>
+                        <div class="w-full h-10 skeleton-pulse rounded-lg"></div>
+                    </div>
+                    
+                    <div id="whitelist-container" class="hidden space-y-2 max-h-48 overflow-y-auto pr-1">
+                        <!-- Programmatic mapping outputs text objects -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- UI Logic Controller Module Hook -->
+    <script src="dashboard.js"></script>
+</body>
+</html>
+                                                                                                                    
